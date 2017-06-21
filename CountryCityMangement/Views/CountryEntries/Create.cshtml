@@ -1,0 +1,128 @@
+﻿@model CountryCityMangement.Models.CountryEntry
+
+@{
+    ViewBag.Title = "Create";
+    
+}
+
+
+@using (Html.BeginForm())
+
+{
+   
+    @Html.AntiForgeryToken()
+   
+    <div class="form-horizontal">
+        <h4>CountryEntry</h4>
+        @if (ViewBag.Massage != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.Massage
+            </div>
+        }
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CountyName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CountyName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CountyName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           
+
+            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.About, htmlAttributes: new { @class = "" })
+
+                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+            </div>
+            </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@{
+    int i = 0;
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>#SL</th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.About)
+        </th>
+
+    </tr>
+    
+@foreach (var item in ViewBag.countrys) {
+    <tr>
+        <td>
+            @Html.Raw(++i)
+        </td>
+        <td>
+
+            @Html.Raw(item.CountyName)
+        </td>
+        <td>
+            @Html.Raw(item.About)
+
+        </td>
+
+    </tr>
+}
+   
+
+</table>
+
+
+
+@section Scripts {
+
+   
+    @Scripts.Render("~/bundles/jqueryval")
+
+   
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 200,
+            width:700,
+            theme: 'modern',
+            plugins: [
+              'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+              'searchreplace wordcount visualblocks visualchars code fullscreen',
+              'insertdatetime media nonbreaking save table contextmenu directionality',
+              'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
+            image_advtab: true,
+            templates: [
+              { title: 'Test template 1', content: 'Test 1' },
+              { title: 'Test template 2', content: 'Test 2' }
+            ],
+            content_css: [
+              '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+              '//www.tinymce.com/css/codepen.min.css'
+            ]
+           
+        });
+    </script>
+
+
+}

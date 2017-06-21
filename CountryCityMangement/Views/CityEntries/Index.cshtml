@@ -1,0 +1,115 @@
+﻿@model CountryCityMangement.Models.CityEntry
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+
+@using (Html.BeginForm("Serch", "CityEntries"))
+
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CountryEntry</h4>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <label class="radio-inline">
+            <input type="radio" name="SerchedValue" value="cityName">Cityname
+          
+        </label>
+        <div class="form-group">
+
+            <div class="col-md-10">
+              <input type="text" class="form-control" name="CityName"/>
+            </div>
+        </div>
+        <label class="radio-inline">
+            <input type="radio" name="SerchedValue" value="CountryName">Country Name
+
+        </label>
+        <div class="form-group">
+
+          
+            <div class="col-md-10">
+                <select class="form-control" name="CoutEntryId">
+                    <option>---Select----</option>
+                    @foreach (var item in ViewBag.country)
+                    {
+                        <option value="@item.Id">@item.CountyName</option>
+                    }
+
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<table class="table table-bordered table-hover" id="cityList">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("#SL")
+            </th>
+            <th>
+                @Html.DisplayName("Country")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfDweller)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in ViewBag.cityes)
+        {
+            <tr>
+                <td>@Html.Raw(++i)</td>
+                <td>
+                    @Html.Raw(item.CoutEntry.CountyName)
+                </td>
+                <td>
+                    @Html.Raw(item.CityName)
+                </td>
+
+                <td>
+                    @Html.Raw(item.NoOfDweller)
+                </td>
+
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts
+{
+    
+    <script>
+        $(document).ready(function () {
+            $('#cityList').DataTable();
+
+        });
+    </script>
+}

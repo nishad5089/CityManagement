@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CountryCityMangement.Models.CountryEntry>
+
+
+@using (Html.BeginForm("Serch", "CountryEntries"))
+
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>CountryEntry</h4>
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+       
+        <div class="form-group">
+
+            <div class="col-md-4">
+                <label for="countryName">Name</label>
+                @if (ViewBag.countryName != null)
+                {
+                    <input type="text" id="countryName" name="CountyName" class="form-control" value="@ViewBag.countryName" />
+                }
+                else
+                {
+                    <input type="text" id="countryName" class="form-control" name="CountyName" />
+                }
+                
+                
+            </div>
+        </div>
+      
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Serch" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table table-bordered table-hover" id="countryList">
+    <thead>
+    <tr>
+        <th>
+
+            @Html.DisplayName("#SL")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CountyName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.About)
+        </th>
+
+    </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in ViewBag.countrys)
+        {
+            <tr>
+                <td>
+                    @Html.Raw(++i)
+                </td>
+
+                <td>
+
+                    @Html.Raw(item.CountyName)
+                </td>
+                <td>
+                    @Html.Raw(item.About)
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section scripts
+{
+   
+    <script>
+     
+        $(document).ready(function () {
+            $('#countryList').DataTable();
+
+        });
+
+    </script>
+}
