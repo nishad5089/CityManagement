@@ -10,7 +10,7 @@ using CountryCityMangement.Models;
 using Microsoft.Ajax.Utilities;
 
 namespace CountryCityMangement.Controllers
-{
+{ [Authorize]
     public class CityEntriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
